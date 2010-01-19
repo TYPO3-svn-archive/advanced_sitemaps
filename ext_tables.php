@@ -34,7 +34,7 @@ $tempColumns = array (
 t3lib_div::loadTCA('pages');
 t3lib_extMgm::addTCAcolumns('pages',$tempColumns,1);
 t3lib_extMgm::addToAllTCAtypes('pages','tx_advancedsitemaps_update_frequency;;;;1-1-1, tx_advancedsitemaps_priority');
-
+t3lib_extMgm::addStaticFile($_EXTKEY,'static/ts/','Advanced Sitemaps (default configuration)');
 
 t3lib_extMgm::addPlugin(array(
 	'LLL:EXT:advanced_sitemaps/locallang_db.xml:tt_content.menu_type_pi1',
