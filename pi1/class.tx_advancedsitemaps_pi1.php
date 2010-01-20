@@ -109,7 +109,6 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 	{
 		// Store configuration to local variables
 		$this->a_conf = $a_conf;
-		print_r($a_conf);
 		$this->s_content = $s_content;
 		$this->s_baseUrl = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'];
 		$this->a_sitemapData = array();
@@ -121,7 +120,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		// Overwrite local configuration with FlexForm values
 		
 		// Disable caching completely
-		if($this->a_conf['disableAllCaching']) $GLOBALS['TSFE']->set_no_cache();
+		if($this->a_conf['disableAllCaching'] || 1==1) $GLOBALS['TSFE']->set_no_cache();
 	}
 	
 	/**
@@ -145,6 +144,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		$o_pageTree->init('AND '.$this->s_standardWhere.'AND no_search = 0 AND doktype NOT IN (199, 254, 255, 5) AND nav_hide = 0');
 		$o_pageTree->getTree(1,50,'');
 		
+		print_r($o_pageTree->tree);
 		/*
 		
 		
