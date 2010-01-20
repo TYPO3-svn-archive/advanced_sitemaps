@@ -142,9 +142,10 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		$o_pageTree->addField('sitemap_index_changefreq',1);
 		$o_pageTree->addField('sitemap_index_prioriy',1);
 		$o_pageTree->init('AND '.$this->s_standardWhere.'AND no_search = 0 AND doktype NOT IN (199, 254, 255, 5) AND nav_hide = 0');
-		$o_pageTree->getTree(1,50,'');
+		$o_pageTree->getTree(2,50,'');
 		
 		print_r($o_pageTree->tree);
+		print_r(time());
 		/*
 		
 		
