@@ -109,6 +109,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 	{
 		// Store configuration to local variables
 		$this->a_conf = $a_conf;
+		print_r($a_conf);
 		$this->s_content = $s_content;
 		$this->s_baseUrl = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'];
 		$this->a_sitemapData = array();
@@ -133,9 +134,16 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 	 */
 	public function main($s_content, $a_conf) {
 		// Initialize
-		$this->init();
+		$this->init($s_content, $a_conf);
 		
-		
+		// Load page tree
+		$o_pageTree = t3lib_div::makeInstance('t3lib_pageTree');
+		$o_pageTree->addField('SYS_LASTCHANGED', 1);
+		$o_pageTree->addField('crdate', 1);
+		$o_pageTree->addField('sitemap_index_changefreq',1);
+		$o_pageTree->addField('sitemap_index_prioriy',1);
+		$o_pageTree->init('AND '.$this->s_standardWhere.'AND no_search = 0 AND doktype NOT IN (199, 254, 255, 5) AND nav_hide = 0');
+		$o_pageTree->getTree(1,50,'');
 		
 		/*
 		
