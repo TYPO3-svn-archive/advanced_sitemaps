@@ -137,8 +137,8 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				'type' => 'select',
 				'items' => array(
 					array('',''),
-					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.sortby_dir.ASC','DESC'),
-					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.sortby_dir.DESC','ASC'),
+					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.sortby_dir.ASC','ASC'),
+					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.sortby_dir.DESC','DESC'),
 				),
 			)
 		),

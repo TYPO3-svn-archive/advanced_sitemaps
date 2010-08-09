@@ -200,7 +200,8 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 				$a_configuration['tablename'],
 				$s_where,
 				'',
-				$s_sorting
+				$s_sorting,
+				$a_configuration['record_limit']
 			);
 			$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = false;
 			
