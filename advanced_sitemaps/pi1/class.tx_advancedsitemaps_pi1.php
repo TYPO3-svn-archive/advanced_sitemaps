@@ -170,7 +170,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		
 		// Process records
 		foreach($this->a_recordConfigurations as $a_configuration) {
-			if($a_configuration['sortby'] != 0) {
+			if(!empty($a_configuration['sortby'])) {
 				/**
 				 * Reverse ordering
 				 * 
