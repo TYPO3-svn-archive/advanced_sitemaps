@@ -141,7 +141,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		
 		// Process pages
 		$s_addWhere = '';
-		if(!$this->a_conf['pages.']['displayHiddenInMenu']) $s_addWhere.=' AND nav_hide = 1';
+		if(!$this->a_conf['pages.']['displayHiddenInMenu']) $s_addWhere.=' AND nav_hide = 0';
 		if($this->a_conf['pages.']['excludePages']) $s_addWhere.= ' AND uid NOT IN ('.$this->a_conf['pages.']['excludePages'].')';
 		$o_pageTree = t3lib_div::makeInstance('t3lib_pageTree');
 		$o_pageTree->addField('SYS_LASTCHANGED', 1);
