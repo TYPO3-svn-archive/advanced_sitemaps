@@ -148,6 +148,8 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		$o_pageTree->addField('SYS_LASTCHANGED', 1);
 		$o_pageTree->addField('crdate', 1);
 		$o_pageTree->addField('pid', 1);
+		$o_pageTree->addField('tx_advancedsitemaps_priority', 1);
+		$o_pageTree->addField('tx_advancedsitemaps_changeFreq', 1);
 		$o_pageTree->init('AND no_search = 0 AND hidden != 1 AND deleted != 1 AND doktype NOT IN (199, 254, 255, 5)'.$s_addWhere);
 		$o_pageTree->getTree($this->i_startingPid);
 		
@@ -187,23 +189,38 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 				$s_sorting = $GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['sortby'].' DESC';
 			}
 			
-			$a_whereParts = array(1);
+			// Construct WHERE
+			$a_selectParts = array(
+				$a_configuration['tablename'].'.*',
+				"p.value AS tx_advancedsitemaps_priority",
+				"cf.value AS tx_advancedsitemaps_changeFreq"
+			);
+			$s_select = implode(', ',$a_selectParts);
 			
+			// Construct FROM
+			$a_fromParts = array(
+				$a_configuration['tablename'],
+				"LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS p ON p.table_name = '".$a_configuration['tablename']."' AND p.record_uid = uid AND type = 'priority'",
+				"LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS cf ON cf.table_name = '".$a_configuration['tablename']."' AND cf.record_uid = uid AND cf.type = 'changeFreq'"
+			);
+			$s_from = implode(' ',$a_fromParts);
+			
+			// Construct WHERE
+			$a_whereParts = array(1);
 			$s_languageField = $GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['languageField'];
 			if($s_languageField) {
 				$a_whereParts[] = $s_languageField.' = '.$GLOBALS['TSFE']->sys_language_uid;
 			}
 			$s_where = implode(' AND ',$a_whereParts).$this->cObj->enableFields($a_configuration['tablename']);
 			
-			$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = true;
+			// Execute and process entries
 			$a_records = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-				'*',
-				$a_configuration['tablename'],
+				$s_select,
+				$s_from,
 				$s_where,
 				'',
 				$s_sorting
 			);
-			$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = false;
 			
 			foreach($a_records as $a_record) {
 				$this->addEntry($a_record,$a_configuration['tablename'],$a_configuration);
@@ -235,7 +252,6 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		$this->pi_initPiFlexForm();
 		foreach($this->cObj->data['pi_flexform']['data'] as $s_sheetName => $a_sheetData) {
 			$s_prefix = strtolower(substr($s_sheetName,1)).'.';
-			//print_r($a_sheetName);
 			foreach($a_sheetData['lDEF'] as $s_fieldName => $a_fieldData) {
 				$s_fieldValue = $a_fieldData['vDEF'];
 				if(!empty($s_fieldValue)) {
@@ -284,7 +300,9 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 			'url' => $this->createLink($a_record, $s_table, $a_configuration),
 			'crdate' => $a_record[$s_crdateField],
 			'tstamp' => $a_record[$s_tstampField],
-			'level' => ($s_table == 'pages') ? intval($this->a_entries['pages:'.$a_record['pid']])+1 : intval($this->a_entries[$s_parent]['level'])+1, 
+			'level' => ($s_table == 'pages') ? intval($this->a_entries['pages:'.$a_record['pid']])+1 : intval($this->a_entries[$s_parent]['level'])+1,
+			'priority' => $a_record['tx_advancedsitemaps_priority'],
+			'changeFreq' => $a_record['tx_advancedsitemaps_changeFreq'],
 		);
 		
 		// Insert the entry into the list, underneath it's parent if set.
@@ -326,6 +344,13 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		return $s_url;
 	}
 	
+	/**
+	 * Replaces fields inside a text. Used for rendering links with parameters
+	 * 
+	 * @param array $a_needles An array containing all the field names to look for
+	 * @param string $s_haystack The string to process
+	 * @return string The processed string
+	 */
 	public static function replaceFields($a_needles,$s_haystack) {
 		$a_matches = array();
 		$a_replacements = array();
