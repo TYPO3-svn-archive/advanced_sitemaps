@@ -59,6 +59,21 @@
 			<!-- pi1: FlexForm: Records -->
 			<label index="advanced_sitemaps.pi_flexform.sheet_records">Records</label>
 			<label index="advanced_sitemaps.pi_flexform.records">Records:</label>
+			
+			<!-- Ghost Fields -->
+			<label index="fields.priority">Priority:</label>
+			<label index="fields.changeFreq">Change frequency:</label>
+			<label index="fields.changeFreq.always">Always</label>
+			<label index="fields.changeFreq.hourly">Hourly</label>
+			<label index="fields.changeFreq.daily">Daily</label>
+			<label index="fields.changeFreq.weekly">Weekly</label>
+			<label index="fields.changeFreq.monthly">Monthly</label>
+			<label index="fields.changeFreq.yearly">Yearly</label>
+			<label index="fields.changeFreq.never">Never</label>
+			<label index="tabs.googleSitemaps">Google Sitemaps</label>
+			
+			<!-- Extension Manager Settings -->
+			<label index="em.allowedTables">Allowed tables</label>
 		</languageKey>
 	</data>
 </T3locallang>

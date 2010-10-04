@@ -26,18 +26,6 @@
 										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.html</numIndex>
 										<numIndex index="1">html</numIndex>
 									</numIndex>
-									<!--numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.xml</numIndex>
-										<numIndex index="1">xml</numIndex>
-									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.rss</numIndex>
-										<numIndex index="1">rss</numIndex>
-									</numIndex>
-									<numIndex index="4" type="array">
-										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.atom</numIndex>
-										<numIndex index="1">atom</numIndex>
-									</numIndex-->					
 									<numIndex index="5" type="array">
 										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.google</numIndex>
 										<numIndex index="1">google</numIndex>

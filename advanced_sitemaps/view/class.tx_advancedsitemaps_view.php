@@ -82,8 +82,10 @@ class tx_advancedsitemaps_view {
 				$a_entryKeys = array_keys($this->a_entries);
 				foreach($a_entryKeys as $s_entryKey) {
 					$i_lastMod = (intval($this->a_entries[$s_entryKey]['tstamp']) != 0) ? $this->a_entries[$s_entryKey]['tstamp'] : $this->a_entries[$s_entryKey]['crdate'];
-					$this->a_entries[$s_entryKey]['change_frequency'] = $this->a_conf['google.']['changeFrequency'];
-					$this->a_entries[$s_entryKey]['priority'] = $this->a_conf['google.']['priority'];
+					//$this->a_entries[$s_entryKey]['change_frequency'] = $this->a_conf['google.']['changeFrequency'];
+					//$this->a_entries[$s_entryKey]['priority'] = $this->a_conf['google.']['priority'];
+					$this->a_entries[$s_entryKey]['change_frequency'] = ($this->a_entries[$s_entryKey]['changeFreq']) ? $this->a_entries[$s_entryKey]['changeFreq'] : $this->a_conf['google.']['changeFrequency'];
+					$this->a_entries[$s_entryKey]['priority'] = ($this->a_entries[$s_entryKey]['priority']) ? $this->a_entries[$s_entryKey]['priority'] : $this->a_conf['google.']['priority'];
 					$this->a_entries[$s_entryKey]['tstamp'] = date($this->a_conf['google.']['dateFormat'],$i_lastMod);
 					$this->a_entries[$s_entryKey]['url'] = $GLOBALS['TSFE']->baseUrl.htmlspecialchars($this->a_entries[$s_entryKey]['url']);
 				}

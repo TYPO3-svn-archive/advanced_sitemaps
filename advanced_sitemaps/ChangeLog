@@ -1,3 +1,7 @@
+2010-10-04 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+	* Fixed #9218 Every page should have the possibility to edit their priority
+
 2010-08-19 Sebastiaan de Jonge <szebi.eger@gmail.com>
 
 	* Fixed #9223 Last modify date should be that of the page content, not of the page

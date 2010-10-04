@@ -45,4 +45,51 @@ t3lib_extMgm::addPlugin(array(
 t3lib_extMgm::addStaticFile($_EXTKEY,'static/','Advanced Sitemaps');
 
 t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:'.$_EXTKEY.'/pi1/ds.tx_advancedsitemaps_pi1.xml','list');
+
+/**
+ * Add additional columns to the TCA for pages. Since the option for this table
+ * is always allowed and enabled.
+ */
+$a_additionalColumns = array(
+    'tx_advancedsitemaps_priority' => array (        
+        'exclude' => 0,        
+        'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.priority',        
+        'config' => array (
+    		'type' => 'select',
+			'items' => array(
+				array('','0'),
+				array('0.1','0.1'),
+				array('0.2','0.2'),
+				array('0.3','0.3'),
+				array('0.4','0.4'),
+				array('0.5','0.5'),
+				array('0.6','0.6'),
+				array('0.7','0.7'),
+				array('0.8','0.8'),
+				array('0.9','0.9'),
+				array('1.0','1.0')
+			),
+		),
+	),
+	'tx_advancedsitemaps_changeFreq' => array (        
+        'exclude' => 0,        
+        'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq',        
+        'config' => array (
+    		'type' => 'select',
+			'items' => array(
+				array('',''),
+				array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.always','always'),
+    			array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.hourly','hourly'),
+				array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.daily','daily'),
+				array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.weekly','weekly'),
+				array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.monthly','monthly'),
+				array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.yearly','yearly'),
+				array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.never','never'),
+			),
+			'selected' => 'never'
+		),
+	),
+);
+t3lib_extMgm::addTCAcolumns('pages',$a_additionalColumns,1);
+t3lib_extMgm::addToAllTCAtypes('pages','--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,tx_advancedsitemaps_priority,tx_advancedsitemaps_changeFreq');
 ?>

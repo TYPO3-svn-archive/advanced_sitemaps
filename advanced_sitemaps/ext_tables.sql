@@ -30,3 +30,17 @@ CREATE TABLE tx_advancedsitemaps_configurations (
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );
+
+CREATE TABLE pages (
+	tx_advancedsitemaps_priority char(3) DEFAULT '' NOT NULL,
+	tx_advancedsitemaps_changeFreq varchar(16) DEFAULT '' NOT NULL
+);
+
+CREATE TABLE tx_advancedsitemaps_configurations_records (
+	table_name varchar(255) DEFAULT '' NOT NULL,
+	record_uid int(11) DEFAULT '0' NOT NULL,
+	`type` varchar(24) DEFAULT '' NOT NULL,
+	value varchar(16) DEFAULT '' NOT NULL,
+	
+	PRIMARY KEY (table_name,record_uid,`type`)
+);
