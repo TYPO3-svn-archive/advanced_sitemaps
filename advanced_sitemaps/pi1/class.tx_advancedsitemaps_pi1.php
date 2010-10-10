@@ -293,7 +293,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 		$s_tstampField = $GLOBALS['TCA'][$s_table]['ctrl']['tstamp'];
 		$s_tstampField = ($s_table == 'pages') ? 'SYS_LASTCHANGED' : $GLOBALS['TCA'][$s_table]['ctrl']['tstamp'];
 		$s_parent = ($s_table == 'pages') ? $a_record['pid'] : self::replaceFields($a_record,$a_configuration['parent']);
-		
+
 		// Setup the new entry
 		$a_newEntry = array(
 			'title' => $a_record[$s_labelField],
@@ -304,6 +304,14 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 			'priority' => $a_record['tx_advancedsitemaps_priority'],
 			'changeFreq' => $a_record['tx_advancedsitemaps_changeFreq'],
 		);
+
+        // Set default priority and change frequency, in case not set
+        if(empty($a_newEntry['priority'])) {
+            $a_newEntry['priority'] = ($a_configuration['gs_priority']) ? $a_configuration['gs_priority'] : '0.5';
+        }
+        if(empty($a_newEntry['changeFreq'])) {
+            $a_newEntry['changeFreq'] = ($a_configuration['gs_changeFreq']) ? $a_configuration['gs_changeFreq'] : 'weekly';
+        }
 		
 		// Insert the entry into the list, underneath it's parent if set.
 		if(empty($s_parent)) {

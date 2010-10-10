@@ -22,6 +22,9 @@
 			<label index="tx_advancedsitemaps_configurations.title_field">Title field:</label>
 			<label index="tx_advancedsitemaps_configurations.link_configuration">Link configuration</label>
 			<label index="tx_advancedsitemaps_configurations.noTableSelected">No table was set</label>
+            <label index="tx_advancedsitemaps_configurations.gs_template">Record type:</label>
+            <label index="tx_advancedsitemaps_configurations.gs_template.default">Default</label>
+            <label index="tx_advancedsitemaps_configurations.gs_template.news">News</label>
 			
 			<!-- pi1: Plugin -->
 			<label index="tt_content.list_type_pi1">Advanced Sitemap</label>

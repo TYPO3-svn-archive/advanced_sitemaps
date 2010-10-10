@@ -210,13 +210,64 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				'default' => '0'
 			),   
 		),
+        'gs_template' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gs_template',
+			'config' => array (
+				'type' => 'select',
+				'items' => Array (
+					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gs_template.default', 'default'),
+					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gs_template.news', 'news'),
+				),
+				'default' => 'default'
+			),
+		),
+        'gs_priority' => array (
+            'exclude' => 0,
+            'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.priority',
+            'config' => array (
+                'type' => 'select',
+                'items' => array(
+                    array('','0'),
+                    array('0.1','0.1'),
+                    array('0.2','0.2'),
+                    array('0.3','0.3'),
+                    array('0.4','0.4'),
+                    array('0.5','0.5'),
+                    array('0.6','0.6'),
+                    array('0.7','0.7'),
+                    array('0.8','0.8'),
+                    array('0.9','0.9'),
+                    array('1.0','1.0')
+                ),
+            ),
+        ),
+        'gs_changeFreq' => array (
+            'exclude' => 0,
+            'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq',
+            'config' => array (
+                'type' => 'select',
+                'items' => array(
+                    array('',''),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.always','always'),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.hourly','hourly'),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.daily','daily'),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.weekly','weekly'),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.monthly','monthly'),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.yearly','yearly'),
+                    array('LLL:EXT:advanced_sitemaps/locallang_db.xml:fields.changeFreq.never','never'),
+                ),
+                'selected' => 'never'
+            ),
+        ),
 	),
 	'types' => array (
-		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params')
+		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_template;;3')
 	),
 	'palettes' => array (
 		'1' => array('showitem' => 'starttime, endtime, fe_group'),
 		'2' => array('showitem' => 'sortby, sortby_dir, record_limit'),
+        '3' => array('showitem' => 'gs_priority,gs_changeFreq')
 	)
 );
 
@@ -262,7 +313,7 @@ class tx_advancedsitemaps_tca {
 				$s_tablename != 'tt_content' && 
 				preg_match('/^(tt|tx|user)_/', $s_tablename) &&
 				isset($GLOBALS['TCA'][$s_tablename]) &&
-				!$GLOBALS['TCA'][$name]['hideTable'] &&
+				!$GLOBALS['TCA'][$s_tablename]['hideTable'] &&
 				strpos($s_tablename, 'tx_mnogosearch_') === false &&
 				strpos($s_tablename, 'tx_advancedsitemaps_') === false
 			){

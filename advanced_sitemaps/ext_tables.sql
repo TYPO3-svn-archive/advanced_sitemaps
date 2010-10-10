@@ -26,6 +26,9 @@ CREATE TABLE tx_advancedsitemaps_configurations (
 	single_page text,
 	startingpoint text,
 	recursive tinytext,
+	gs_template tinytext,
+	gs_priority char(3) DEFAULT '' NOT NULL,
+	gs_changeFreq varchar(16) DEFAULT '' NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)
@@ -37,10 +40,10 @@ CREATE TABLE pages (
 );
 
 CREATE TABLE tx_advancedsitemaps_configurations_records (
-	table_name varchar(255) DEFAULT '' NOT NULL,
-	record_uid int(11) DEFAULT '0' NOT NULL,
+	`table_name` varchar(255) DEFAULT '' NOT NULL,
+	`record_uid` int(11) DEFAULT '0' NOT NULL,
 	`type` varchar(24) DEFAULT '' NOT NULL,
-	value varchar(16) DEFAULT '' NOT NULL,
+	`value` varchar(16) DEFAULT '' NOT NULL,
 	
 	PRIMARY KEY (table_name,record_uid,`type`)
 );
