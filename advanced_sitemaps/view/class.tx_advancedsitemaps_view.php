@@ -77,6 +77,7 @@ class tx_advancedsitemaps_view {
                 // Not available yet
                 break;
             case 'google':
+                $s_baseUrl = $GLOBALS['TSFE']->absRefPrefix ? $GLOBALS['TSFE']->absRefPrefix : $GLOBALS['TSFE']->baseUrl;
                 $this->b_directOutput = true;
                 $this->s_mimeType = 'text/xml';
                 $a_entryKeys = array_keys($this->a_entries);
@@ -86,8 +87,8 @@ class tx_advancedsitemaps_view {
                     $this->a_entries[$s_entryKey]['priority'] = ($this->a_entries[$s_entryKey]['priority']) ? $this->a_entries[$s_entryKey]['priority'] : $this->a_conf['google.']['priority'];
                     $this->a_entries[$s_entryKey]['tstamp'] = date($this->a_conf['google.']['dateFormat'], $i_lastMod);
                     $this->a_entries[$s_entryKey]['url'] = htmlspecialchars($this->a_entries[$s_entryKey]['url']);
-                    if (strstr($this->a_entries[$s_entryKey]['url'], '://') === false) {
-                        $this->a_entries[$s_entryKey]['url'] = $GLOBALS['TSFE']->baseUrl . $this->a_entries[$s_entryKey]['url'];
+                    if (strstr($this->a_entries[$s_entryKey]['url'], $s_baseUrl) === false) {
+                        $this->a_entries[$s_entryKey]['url'] = $s_baseUrl . $this->a_entries[$s_entryKey]['url'];
                     }
                 }
                 break;
