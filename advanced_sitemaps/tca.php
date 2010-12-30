@@ -310,12 +310,13 @@ class tx_advancedsitemaps_tca {
 		$a_tables = array_keys($GLOBALS['TYPO3_DB']->admin_get_tables());
 		foreach ($a_tables as $s_tablename) {
 			if(
-				$s_tablename != 'tt_content' && 
+				($s_tablename != 'tt_content' &&
 				preg_match('/^(tt|tx|user)_/', $s_tablename) &&
 				isset($GLOBALS['TCA'][$s_tablename]) &&
 				!$GLOBALS['TCA'][$s_tablename]['hideTable'] &&
 				strpos($s_tablename, 'tx_mnogosearch_') === false &&
-				strpos($s_tablename, 'tx_advancedsitemaps_') === false
+				strpos($s_tablename, 'tx_advancedsitemaps_') === false) ||
+                $s_tablename = 'pages'
 			){
 				$s_title = $GLOBALS['LANG']->sL($GLOBALS['TCA'][$s_tablename]['ctrl']['title']);
 				if ($s_title) {

@@ -162,6 +162,8 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
         $a_configuration = array(
             'single_page' => 0,
             'additional_params' => '',
+            'gs_priority' => $this->a_conf['priority'] ? $this->a_conf['priority'] : '0.5',
+            'gs_changeFreq' => $this->a_conf['changeFrequency'] ? $this->a_conf['changeFrequency'] : 'weekly',
         );
         foreach ($o_pageTree->tree as $a_page)
         {

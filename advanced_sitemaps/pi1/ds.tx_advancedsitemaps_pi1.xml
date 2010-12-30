@@ -110,43 +110,6 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<sortby>
-						<TCEforms>
-							<label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.sortby</label>
-							<config>
-								<type>select</type>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>					
-								</items>
-								<itemsProcFunc>EXT:advanced_sitemaps/tca.php:tx_advancedsitemaps_tca->listFields</itemsProcFunc>
-							</config>
-						</TCEforms>
-					</sortby>
-					<sortby_dir>
-						<TCEforms>
-							<label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.sortby_dir</label>
-							<config>
-								<type>select</type>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>					
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.sortby_dir.asc</numIndex>
-										<numIndex index="1">asc</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.sortby_dir.desc</numIndex>
-										<numIndex index="1">desc</numIndex>
-									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
-					</sortby_dir>
 					<limit>
 						<TCEforms>
 						<label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.limit</label>
