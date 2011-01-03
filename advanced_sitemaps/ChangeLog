@@ -1,3 +1,8 @@
+2011-01-03 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+    * Added #9675 Googlesitemaps - When tt_news it should contain another template
+    * Fixed #11859 Record configurations are no longer loaded
+
 2010-10-04 Sebastiaan de Jonge <szebi.eger@gmail.com>
 
 	* Fixed #9218 Every page should have the possibility to edit their priority

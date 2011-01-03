@@ -25,6 +25,10 @@
             <label index="tx_advancedsitemaps_configurations.gs_template">Record type:</label>
             <label index="tx_advancedsitemaps_configurations.gs_template.default">Default</label>
             <label index="tx_advancedsitemaps_configurations.gs_template.news">News</label>
+            <label index="tx_advancedsitemaps_configurations.gsn_dateField">Date field:</label>
+            <label index="tx_advancedsitemaps_configurations.gsn_titleField">Title field:</label>
+            <label index="tx_advancedsitemaps_configurations.gsn_keywordsField">Keywords field:</label>
+            <label index="tx_advancedsitemaps_configurations.gsn_stockTickerField">Stock ticker field:</label>
 			
 			<!-- pi1: Plugin -->
 			<label index="tt_content.list_type_pi1">Advanced Sitemap</label>
@@ -38,6 +42,7 @@
 			<label index="advanced_sitemaps.pi_flexform.rss">RSS Feed</label>
 			<label index="advanced_sitemaps.pi_flexform.atom">ATOM Feed</label>
 			<label index="advanced_sitemaps.pi_flexform.google">Google Sitemap</label>
+            <label index="advanced_sitemaps.pi_flexform.google_news">Google News Sitemap</label>
 			<label index="advanced_sitemaps.pi_flexform.templateFile">Template:</label>
 			
 			<!-- pi1: FlexForm: Google Sitemaps -->
@@ -62,6 +67,13 @@
 			<!-- pi1: FlexForm: Records -->
 			<label index="advanced_sitemaps.pi_flexform.sheet_records">Records</label>
 			<label index="advanced_sitemaps.pi_flexform.records">Records:</label>
+
+            <!-- pi1: FlexForm: Google News -->
+            <label index="advanced_sitemaps.pi_flexform.name">Name:</label>
+            <label index="advanced_sitemaps.pi_flexform.language">Language:</label>
+            <label index="advanced_sitemaps.pi_flexform.genres">Genres:</label>
+            <label index="advanced_sitemaps.pi_flexform.keywords">Keywords:</label>
+            <label index="advanced_sitemaps.pi_flexform.stockTicker">Stock trackers:</label>
 			
 			<!-- Ghost Fields -->
 			<label index="fields.priority">Priority:</label>
@@ -74,6 +86,7 @@
 			<label index="fields.changeFreq.yearly">Yearly</label>
 			<label index="fields.changeFreq.never">Never</label>
 			<label index="tabs.googleSitemaps">Google Sitemaps</label>
+            <label index="tabs.googleNewsSitemaps">Google News Sitemaps</label>
 			
 			<!-- Extension Manager Settings -->
 			<label index="em.allowedTables">Allowed tables</label>

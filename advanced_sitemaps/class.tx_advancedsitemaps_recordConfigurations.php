@@ -88,7 +88,7 @@ class tx_advancedsitemaps_recordConfigurations implements t3lib_Singleton {
 	private function updateRecordConfigurationValue($s_tableName,$i_recordUid,$s_type,$s_value) {
 		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 			'tx_advancedsitemaps_configurations_records',
-			"table_name = '$s_tableName' AND record_uid = $i_recordUid AND `type`='$s_type'",
+			"table_name = '$s_tableName' AND record_uid = $i_recordUid AND dataType = '$s_type'",
 			array(
 				'value' => $s_value
 			)
@@ -110,7 +110,7 @@ class tx_advancedsitemaps_recordConfigurations implements t3lib_Singleton {
 			array(
 				'table_name' => $s_tableName,
 				'record_uid' => $i_recordUid,
-				'type' => $s_type,
+				'dataType' => $s_type,
 				'value' => $s_value
 			)
 		);
@@ -217,10 +217,10 @@ class tx_advancedsitemaps_recordConfigurations implements t3lib_Singleton {
 	 * This is where the actual storage is done.
 	 * 
 	 * @param string $s_status
-	 * @param unknown_type $table
-	 * @param unknown_type $id
-	 * @param unknown_type $fieldArray
-	 * @param unknown_type $o_parent
+	 * @param string $table
+	 * @param int $id
+	 * @param array $fieldArray
+	 * @param object $o_parent
 	 * @return void
 	 */
 	public function processDatamap_afterDatabaseOperations($s_status, $s_table, $i_uid, $a_fields, $o_parent) {

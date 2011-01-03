@@ -203,7 +203,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                 // Construct FROM
                 $a_fromParts = array(
                     $a_configuration['tablename'],
-                    "LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS p ON p.table_name = '" . $a_configuration['tablename'] . "' AND p.record_uid = uid AND type = 'priority'",
+                    "LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS p ON p.table_name = '" . $a_configuration['tablename'] . "' AND p.record_uid = uid AND dataType = 'priority'",
                     "LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS cf ON cf.table_name = '" . $a_configuration['tablename'] . "' AND cf.record_uid = uid AND cf.type = 'changeFreq'"
                 );
                 $s_from = implode(' ', $a_fromParts);
@@ -315,6 +315,12 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
         }
         if (empty($a_newEntry['changeFreq'])) {
             $a_newEntry['changeFreq'] = ($a_configuration['gs_changeFreq']) ? $a_configuration['gs_changeFreq'] : 'weekly';
+        }
+
+        if($this->a_conf['outputFormat'] == 'google_news') {
+            $a_newEntry['publication_date'] = date('Y-m-d H:i',$a_record[$a_configuration['gsn_dateField']]);
+            $a_newEntry['wrap_keywords'] = $a_record[$a_configuration['gsn_keywordsField']];
+            $a_newEntry['wrap_stockTicker'] = $a_record[$a_configuration['gsn_stockTickerField']];
         }
 
         // Insert the entry into the list, underneath it's parent if set.

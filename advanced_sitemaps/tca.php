@@ -170,18 +170,6 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				'maxitems' => 1,
 			)
 		),
-		'title_field' => array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.title_field',
-			'displayCond' => 'FIELD:tablename:!=:', 		
-			'config' => array (
-				'type' => 'select',
-				'items' => array (
-					array('', 0),
-				),
-				'itemsProcFunc' => 'tx_advancedsitemaps_tca->listFields',
-			)
-		),
 		'startingpoint' => array (		
 			'exclude' => 0,		
 			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.startingpoint',		
@@ -209,18 +197,6 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				),                                                                                                                                                          
 				'default' => '0'
 			),   
-		),
-        'gs_template' => array (
-			'exclude' => 1,
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gs_template',
-			'config' => array (
-				'type' => 'select',
-				'items' => Array (
-					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gs_template.default', 'default'),
-					array('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gs_template.news', 'news'),
-				),
-				'default' => 'default'
-			),
 		),
         'gs_priority' => array (
             'exclude' => 0,
@@ -260,9 +236,57 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
                 'selected' => 'never'
             ),
         ),
+        'gsn_dateField' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gsn_dateField',
+			'displayCond' => 'FIELD:tablename:!=:',
+			'config' => array (
+				'type' => 'select',
+				'items' => array (
+					array('', 0),
+				),
+				'itemsProcFunc' => 'tx_advancedsitemaps_tca->listFields',
+			)
+		),
+        'gsn_titleField' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gsn_titleField',
+			'displayCond' => 'FIELD:tablename:!=:',
+			'config' => array (
+				'type' => 'select',
+				'items' => array (
+					array('', 0),
+				),
+				'itemsProcFunc' => 'tx_advancedsitemaps_tca->listFields',
+			)
+		),
+        'gsn_keywordsField' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gsn_keywordsField',
+			'displayCond' => 'FIELD:tablename:!=:',
+			'config' => array (
+				'type' => 'select',
+				'items' => array (
+					array('', 0),
+				),
+				'itemsProcFunc' => 'tx_advancedsitemaps_tca->listFields',
+			)
+		),
+        'gsn_stockTickerField' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.gsn_stockTickerField',
+			'displayCond' => 'FIELD:tablename:!=:',
+			'config' => array (
+				'type' => 'select',
+				'items' => array (
+					array('', 0),
+				),
+				'itemsProcFunc' => 'tx_advancedsitemaps_tca->listFields',
+			)
+		),
 	),
 	'types' => array (
-		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_template;;3')
+		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_priority,gs_changeFreq,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleNewsSitemaps,gsn_dateField,gsn_keywordsField,gsn_stockTickerField')
 	),
 	'palettes' => array (
 		'1' => array('showitem' => 'starttime, endtime, fe_group'),

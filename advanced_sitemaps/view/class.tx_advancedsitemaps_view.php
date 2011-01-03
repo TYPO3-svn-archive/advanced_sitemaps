@@ -92,6 +92,31 @@ class tx_advancedsitemaps_view {
                     }
                 }
                 break;
+            case 'google_news':
+                $s_baseUrl = $GLOBALS['TSFE']->absRefPrefix ? $GLOBALS['TSFE']->absRefPrefix : $GLOBALS['TSFE']->baseUrl;
+                $this->b_directOutput = true;
+                $this->s_mimeType = 'text/xml';
+                $this->a_globalMarkers = array(
+                    'news_name' => $this->a_conf['news.']['name'],
+                    'language' => $this->a_conf['news.']['language'],
+                    'wrap_genres' => $this->a_conf['news.']['genres'],
+                    'wrap_access' => '',
+                );
+                foreach ($this->a_entries as $s_entryKey => $a_entryData) {
+                    $this->a_entries[$s_entryKey]['wrap_keywords'] =
+                            ($a_entryData['wrap_keywords'] && $this->a_conf['news.']['keywords']) ?
+                                    $a_entryData['wrap_keywords'].','.$this->a_conf['news.']['keywords'] :
+                                    $a_entryData['wrap_keywords'].$this->a_conf['news.']['keywords'];
+                    $this->a_entries[$s_entryKey]['wrap_stockTicker'] =
+                            ($a_entryData['wrap_stockTicker'] && $this->a_conf['news.']['stockTicker']) ?
+                                    $a_entryData['wrap_stockTicker'].','.$this->a_conf['news.']['stockTicker'] :
+                                    $a_entryData['wrap_stockTicker'].$this->a_conf['news.']['stockTicker'];
+                    $this->a_entries[$s_entryKey]['url'] = htmlspecialchars($this->a_entries[$s_entryKey]['url']);
+                    if (strstr($this->a_entries[$s_entryKey]['url'], $s_baseUrl) === false) {
+                        $this->a_entries[$s_entryKey]['url'] = $s_baseUrl . $this->a_entries[$s_entryKey]['url'];
+                    }
+                }
+                break;
             default:
                 return 'Bad output format selected (' . $s_outputFormat . ')';
                 break;
@@ -136,10 +161,20 @@ class tx_advancedsitemaps_view {
      * @return string The rendered item
      */
     protected function renderItem($a_entryData, $s_entryKey) {
+        $s_renderedItem = $this->s_templateItem;
         if (empty($a_entryData['url'])) return ''; // No access, no display
+        // Set global markers
         $a_markers = array();
+        $a_entryData = array_merge($a_entryData,$this->a_globalMarkers);
         foreach ($a_entryData as $s_itemKey => $s_itemValue) {
-            $a_markers[$s_itemKey] = $s_itemValue;
+            if(stristr($s_itemKey,'wrap_')) {
+                $s_subpart = $s_itemValue ? t3lib_parsehtml::getSubpart($s_renderedItem,'###'.strtoupper($s_itemKey)) : '';
+                $s_renderedItem = t3lib_parsehtml::substituteSubpart($s_renderedItem,'###'.strtoupper($s_itemKey).'###',$s_subpart);
+                $a_markers[substr($s_itemKey,5)] = $s_itemValue;
+            }
+            else {
+                $a_markers[$s_itemKey] = $s_itemValue;
+            }
         }
 
         $s_stdWrap = 'level' . $a_entryData['level'] . '_stdWrap.';
@@ -150,7 +185,8 @@ class tx_advancedsitemaps_view {
             $a_markers['WRAPPED_TITLE'] = $this->o_plugin->cObj->stdWrap($a_entryData['title'], $this->a_conf[$s_stdWrap]);
         }
 
-        $s_renderedItem = t3lib_parsehtml::substituteMarkerArray($this->s_templateItem, $a_markers, '###|###', true, true);
+        // Render the remaining markers
+        $s_renderedItem = t3lib_parsehtml::substituteMarkerArray($s_renderedItem, $a_markers, '###|###', true, true);
         return $s_renderedItem;
     }
 
