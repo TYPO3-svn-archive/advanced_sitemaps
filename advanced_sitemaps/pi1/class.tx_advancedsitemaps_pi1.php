@@ -296,7 +296,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
         $s_crdateField = $GLOBALS['TCA'][$s_table]['ctrl']['crdate'];
         $s_tstampField = $GLOBALS['TCA'][$s_table]['ctrl']['tstamp'];
         $s_tstampField = ($s_table == 'pages') ? 'SYS_LASTCHANGED' : $GLOBALS['TCA'][$s_table]['ctrl']['tstamp'];
-        $s_parent = ($s_table == 'pages') ? $a_record['pid'] : self::replaceFields($a_record, $a_configuration['parent']);
+        $s_parent = ($s_table == 'pages') ? $a_configuration['parent'] : self::replaceFields($a_record, $a_configuration['parent']);
 
         // Setup the new entry
         $a_newEntry = array(
@@ -331,7 +331,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
             // Parent is set, compute insertion point
             $a_entryKeys = array_keys($this->a_entries);
             $i_offset = array_search($s_parent, $a_entryKeys);
-            if ($i_offset) {
+            if ($i_offset !== false) {
                 $i_offset++;
                 // Insertion point found, add record
                 $a_entriesAfter = array_splice($this->a_entries, $i_offset);

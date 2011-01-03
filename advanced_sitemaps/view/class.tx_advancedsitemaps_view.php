@@ -42,6 +42,7 @@ class tx_advancedsitemaps_view {
     protected $o_plugin;
     protected $b_directOutput = false;
     protected $s_mimeType = 'text/html';
+    protected $a_globalMarkers = array();
 
     /**
      * Main render function
