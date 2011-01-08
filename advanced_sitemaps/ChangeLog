@@ -1,3 +1,7 @@
+2011-01-08 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+    * Fixed #11871 Startingpoint for records is ignored
+
 2011-01-03 Sebastiaan de Jonge <szebi.eger@gmail.com>
 
     * Added #9675 Googlesitemaps - When tt_news it should contain another template

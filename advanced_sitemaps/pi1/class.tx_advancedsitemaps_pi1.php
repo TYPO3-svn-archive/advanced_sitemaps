@@ -192,7 +192,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                     $s_sorting = $GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['sortby'] . ' DESC';
                 }
 
-                // Construct WHERE
+                // Construct SELECT
                 $a_selectParts = array(
                     $a_configuration['tablename'] . '.*',
                     "p.value AS tx_advancedsitemaps_priority",
@@ -213,6 +213,9 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                 $s_languageField = $GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['languageField'];
                 if ($s_languageField) {
                     $a_whereParts[] = $s_languageField . ' = ' . $GLOBALS['TSFE']->sys_language_uid;
+                }
+                if($a_configuration['startingpoint']) {
+                    $a_whereParts[] = 'pid IN ('.$this->pi_getPidList($a_configuration['startingpoint'],intval($a_configuration['recursive'])).')';
                 }
                 $s_where = implode(' AND ', $a_whereParts) . $this->cObj->enableFields($a_configuration['tablename']);
 
