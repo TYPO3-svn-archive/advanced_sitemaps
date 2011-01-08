@@ -101,26 +101,36 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				'eval' => 'required',
 			)
 		),
-		'parent' => array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.parent',		
+        'andWhere' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.andWhere',
+            'displayCond' => 'HIDE_FOR_NON_ADMINS',
 			'config' => array (
-				'type' => 'input',	
+				'type' => 'text',
+				'rows' => '5',
+                'columns' => '30',
+			)
+		),
+		'parent' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.parent',
+			'config' => array (
+				'type' => 'input',
 				'size' => '30',
 			)
 		),
-		'url_params' => array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.url_params',		
+		'url_params' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.url_params',
 			'config' => array (
-				'type' => 'input',	
+				'type' => 'input',
 				'size' => '48',
 			)
 		),
-		'sortby' => array (		
-			'exclude' => 0,		
+		'sortby' => array (
+			'exclude' => 0,
 			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.sortby',
-			'displayCond' => 'FIELD:tablename:!=:', 		
+			'displayCond' => 'FIELD:tablename:!=:',
 			'config' => array (
 				'type' => 'select',
 				'items' => array (
@@ -129,10 +139,10 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				'itemsProcFunc' => 'tx_advancedsitemaps_tca->listFields',
 			)
 		),
-		'sortby_dir' => array (		
-			'exclude' => 0,		
+		'sortby_dir' => array (
+			'exclude' => 0,
 			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.sortby_dir',
-			'displayCond' => 'FIELD:sortby:!=:',		
+			'displayCond' => 'FIELD:sortby:!=:',
 			'config' => array (
 				'type' => 'select',
 				'items' => array(
@@ -142,9 +152,9 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				),
 			)
 		),
-		'record_limit' => array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.record_limit',		
+		'record_limit' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.record_limit',
 			'config' => array (
 				'type'     => 'input',
 				'size'     => '4',
@@ -158,45 +168,45 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 				'default' => 0
 			)
 		),
-		'single_page' => array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.single_page',		
+		'single_page' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.single_page',
 			'config' => array (
-				'type' => 'group',	
-				'internal_type' => 'db',	
-				'allowed' => 'pages',	
-				'size' => 1,	
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'pages',
+				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),
-		'startingpoint' => array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.startingpoint',		
+		'startingpoint' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.startingpoint',
 			'config' => array (
-				'type' => 'group',	
-				'internal_type' => 'db',	
-				'allowed' => 'pages',	
-				'size' => 4,	
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'pages',
+				'size' => 4,
 				'minitems' => 0,
 				'maxitems' => 10,
 			)
 		),
-		'recursive' => array (		
-			'exclude' => 1,                                                                                                                                                     
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.recursive',                                                                                                      
-			'config' => array (                                                                                                                                                 
-				'type' => 'select',                                                                                                                                         
-				'items' => Array (                                                                                                                                          
-					array('', '0'),                                                                                                                                     
-					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.1', '1'),                                                                                          
-					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.2', '2'),                                                                                          
-					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.3', '3'),                                                                                          
-					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.4', '4'),                                                                                          
-					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.5', '250')                                                                                         
-				),                                                                                                                                                          
+		'recursive' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.recursive',
+			'config' => array (
+				'type' => 'select',
+				'items' => Array (
+					array('', '0'),
+					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.1', '1'),
+					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.2', '2'),
+					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.3', '3'),
+					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.4', '4'),
+					array('LLL:EXT:cms/locallang_ttc.php:recursive.I.5', '250')
+				),
 				'default' => '0'
-			),   
+			),
 		),
         'gs_priority' => array (
             'exclude' => 0,
@@ -286,7 +296,7 @@ $TCA['tx_advancedsitemaps_configurations'] = array (
 		),
 	),
 	'types' => array (
-		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_priority,gs_changeFreq,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleNewsSitemaps,gsn_dateField,gsn_keywordsField,gsn_stockTickerField')
+		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, andWhere, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_priority,gs_changeFreq,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleNewsSitemaps,gsn_dateField,gsn_keywordsField,gsn_stockTickerField')
 	),
 	'palettes' => array (
 		'1' => array('showitem' => 'starttime, endtime, fe_group'),

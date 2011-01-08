@@ -217,6 +217,9 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                 if($a_configuration['startingpoint']) {
                     $a_whereParts[] = 'pid IN ('.$this->pi_getPidList($a_configuration['startingpoint'],intval($a_configuration['recursive'])).')';
                 }
+                if($a_configuration['andWhere']) {
+                    $a_whereParts[] = $a_configuration['andWhere'];
+                }
                 $s_where = implode(' AND ', $a_whereParts) . $this->cObj->enableFields($a_configuration['tablename']);
 
                 // Execute and process entries
