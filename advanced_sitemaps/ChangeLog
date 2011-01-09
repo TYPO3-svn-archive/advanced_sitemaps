@@ -1,0 +1,31 @@
+2011-01-08 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+    * Fixed #11871 Startingpoint for records is ignored
+    * Fixed #11849 Add more precisive record selection
+    * Updated extension manual
+
+2011-01-03 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+    * Added #9675 Googlesitemaps - When tt_news it should contain another template
+    * Fixed #11859 Record configurations are no longer loaded
+
+2010-10-04 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+	* Fixed #9218 Every page should have the possibility to edit their priority
+
+2010-08-19 Sebastiaan de Jonge <szebi.eger@gmail.com>
+
+	* Fixed #9223 Last modify date should be that of the page content, not of the page
+	* Fixed #9222 Add $this->cObj->enableFields() to record selection
+	* Fixed #9221 Add baseURL in case output is set to Google Sitemaps
+	* Added warnings to display when no template is available
+	* Added support for date fields in urls, other functions may be requested in the future. Format {field:[fieldname]:[function]:[parameter]}
+
+2010-06-22 Sebastiaan de Jonge  <szebi.eger@gmail.com>
+
+	* Added option to exclude pages from the plugin
+	* Added static template inclusion (ext_tables.php)
+
+2010-06-17 Sebastiaan de Jonge  <szebi.eger@gmail.com>
+
+	* Initial code generated
