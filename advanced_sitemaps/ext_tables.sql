@@ -49,5 +49,5 @@ CREATE TABLE tx_advancedsitemaps_configurations_records (
 	`dataType` varchar(24) DEFAULT '' NOT NULL,
 	`value` varchar(16) DEFAULT '' NOT NULL,
 	
-	PRIMARY KEY (table_name,record_uid,`type`)
+	PRIMARY KEY (table_name,record_uid,dataType)
 );
