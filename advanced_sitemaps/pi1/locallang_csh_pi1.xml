@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>flex</type>
+		<description>CSH language labels for the pi1 flexform (all sheets)</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<!-- Output -->
+			<label index="templateFile.description">If you don't want to use the default template, you can simply add the path to your own template here. e.g. fileadmin/templates/mx_template.html</label>
+			<label index="outputFormat.description">Select the format in which you want the output to be rendered. Please note that for RSS and ATOM this will be the only content that is put out. HTTP headers will be modified as well.</label>
+			<label index="sortby.description">The pages will be sorted by this column/direction. Only change this value if you want to change the default order in which the pages are sorted (tree-form).</label>
+			<label index="limit.description">The maximum number of pages that should be displayed (counts for the combination of pages/records).</label>
+			
+			<!-- Pages -->
+			<label index="displayMax.description">The maximum number of records/pages that will be outputted (e.g. to generate an RSS feed with updated pages)</label>
+			<label index="excludePages.description">Select the pages that you do not wish to display inside the sitemap</label>
+			
+			<!-- Records -->
+			<label index="records.description">Select the record configurations you would like to use for the sitemap here.</label>
+			
+			<!-- Google Sitemaps -->
+			<label index="changeFrequency.alttitle">Google Sitemap</label>
+			<label index="changeFrequency.description">This is the rate at which the content is updated. Possibilities: daily, weekly and montly.</label>
+			<label index="priority.alttitle">Google Sitemap</label>
+			<label index="priority.description">The default priority for your pages and records, this is a value between 0 and 1. Where 0.1 equals the lowest priority and 1.0 equals the highest. Default is 0.5 (normal priority).</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,6 @@
+These features and fixes should still be implemented at some point.
+
+	* Add support for RSS output
+	* Add support for XML output
+	* Add support for ATOM output
+	* Use IRRE for record configurations
