@@ -255,4 +255,11 @@ class tx_advancedsitemaps_recordConfigurations implements t3lib_Singleton {
 		//
 	}
 }
+
+/**
+ * XCLASS inclusion
+ */
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/advanced_sitemaps/class.tx_advancedsitemaps_recordConfigurations.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/advanced_sitemaps/class.tx_advancedsitemaps_recordConfigurations.php']);
+}
 ?>

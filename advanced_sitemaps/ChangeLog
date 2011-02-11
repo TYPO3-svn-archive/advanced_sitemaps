@@ -1,3 +1,7 @@
+2011-02-11 Sebastiaan de Jonge <mail@sebastiaandejonge.com>
+
+    * Fixed #12957 Non-existing column in SQL JOIN statement makes impossible to select any records except pages
+
 2011-01-08 Sebastiaan de Jonge <szebi.eger@gmail.com>
 
     * Fixed #11871 Startingpoint for records is ignored
