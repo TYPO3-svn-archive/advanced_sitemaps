@@ -1,3 +1,7 @@
+2011-02-16 Sebastiaan de Jonge <mail@sebastiaandejonge.com>
+
+    * Modified TCA, seperated the TCA class from the actual TCA to prevent it from being loaded more than once (4.5)
+
 2011-02-11 Sebastiaan de Jonge <mail@sebastiaandejonge.com>
 
     * Fixed #12957 Non-existing column in SQL JOIN statement makes impossible to select any records except pages
