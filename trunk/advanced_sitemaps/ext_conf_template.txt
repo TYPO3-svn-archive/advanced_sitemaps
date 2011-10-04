@@ -1,2 +1,0 @@
-  # cat=basic; type=text; label=LLL:EXT:advanced_sitemaps/locallang_db.xml:em.allowedTables
-  allowedTables = tt_news,tx_t3blog_post
