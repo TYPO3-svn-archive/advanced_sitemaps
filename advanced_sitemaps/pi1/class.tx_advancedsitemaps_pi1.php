@@ -317,39 +317,43 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
             'changeFreq' => $a_record['tx_advancedsitemaps_changeFreq'],
         );
 
-        // Set default priority and change frequency, in case not set
-        if (empty($a_newEntry['priority'])) {
-            $a_newEntry['priority'] = ($a_configuration['gs_priority']) ? $a_configuration['gs_priority'] : '0.5';
-        }
-        if (empty($a_newEntry['changeFreq'])) {
-            $a_newEntry['changeFreq'] = ($a_configuration['gs_changeFreq']) ? $a_configuration['gs_changeFreq'] : 'weekly';
-        }
+		// Proceed only if the URL is not empty
+		// (the URL will be empty in case of access-restricted pages, for example)
+		if (!empty($a_newEntry['url'])) {
+			// Set default priority and change frequency, in case not set
+			if (empty($a_newEntry['priority'])) {
+				$a_newEntry['priority'] = ($a_configuration['gs_priority']) ? $a_configuration['gs_priority'] : '0.5';
+			}
+			if (empty($a_newEntry['changeFreq'])) {
+				$a_newEntry['changeFreq'] = ($a_configuration['gs_changeFreq']) ? $a_configuration['gs_changeFreq'] : 'weekly';
+			}
 
-        if($this->a_conf['outputFormat'] == 'google_news') {
-            $a_newEntry['publication_date'] = date('Y-m-d H:i',$a_record[$a_configuration['gsn_dateField']]);
-            $a_newEntry['wrap_keywords'] = $a_record[$a_configuration['gsn_keywordsField']];
-            $a_newEntry['wrap_stockTicker'] = $a_record[$a_configuration['gsn_stockTickerField']];
-        }
+			if($this->a_conf['outputFormat'] == 'google_news') {
+				$a_newEntry['publication_date'] = date('Y-m-d H:i',$a_record[$a_configuration['gsn_dateField']]);
+				$a_newEntry['wrap_keywords'] = $a_record[$a_configuration['gsn_keywordsField']];
+				$a_newEntry['wrap_stockTicker'] = $a_record[$a_configuration['gsn_stockTickerField']];
+			}
 
-        // Insert the entry into the list, underneath it's parent if set.
-        if (empty($s_parent)) {
-            // Parent is not set, just add at the end
-            $this->a_entries[$s_table . ':' . $a_record['uid']] = $a_newEntry;
-        } else {
-            // Parent is set, compute insertion point
-            $a_entryKeys = array_keys($this->a_entries);
-            $i_offset = array_search($s_parent, $a_entryKeys);
-            if ($i_offset !== false) {
-                $i_offset++;
-                // Insertion point found, add record
-                $a_entriesAfter = array_splice($this->a_entries, $i_offset);
-                $this->a_entries[$s_table . ':' . $a_record['uid']] = $a_newEntry;
-                $this->a_entries = array_merge($this->a_entries, $a_entriesAfter);
-            } else {
-                // Insertion point not found, add at the end anyways
-                $this->a_entries[$s_table . ':' . $a_record['uid']] = $a_newEntry;
-            }
-        }
+			// Insert the entry into the list, underneath it's parent if set.
+			if (empty($s_parent)) {
+				// Parent is not set, just add at the end
+				$this->a_entries[$s_table . ':' . $a_record['uid']] = $a_newEntry;
+			} else {
+				// Parent is set, compute insertion point
+				$a_entryKeys = array_keys($this->a_entries);
+				$i_offset = array_search($s_parent, $a_entryKeys);
+				if ($i_offset !== false) {
+					$i_offset++;
+					// Insertion point found, add record
+					$a_entriesAfter = array_splice($this->a_entries, $i_offset);
+					$this->a_entries[$s_table . ':' . $a_record['uid']] = $a_newEntry;
+					$this->a_entries = array_merge($this->a_entries, $a_entriesAfter);
+				} else {
+					// Insertion point not found, add at the end anyways
+					$this->a_entries[$s_table . ':' . $a_record['uid']] = $a_newEntry;
+				}
+			}
+		}
     }
 
     /**
