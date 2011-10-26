@@ -51,6 +51,6 @@ plugin.tx_advancedsitemaps_pi1 {
 	## Settings for Google News Sitemap output
 	google_news {
 	    templateFile = EXT:advanced_sitemaps/res/template_google_news.xml
-	    dateFormat = Y-m-d H:i:s
+	    dateFormat = c
 	}
 }

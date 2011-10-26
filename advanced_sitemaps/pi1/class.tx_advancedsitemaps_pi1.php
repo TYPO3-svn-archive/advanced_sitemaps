@@ -329,7 +329,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 			}
 
 			if($this->a_conf['outputFormat'] == 'google_news') {
-				$a_newEntry['publication_date'] = date('Y-m-d H:i',$a_record[$a_configuration['gsn_dateField']]);
+				$a_newEntry['publication_date'] = date($this->a_conf['google_news.']['dateFormat'] ,$a_record[$a_configuration['gsn_dateField']]);
 				$a_newEntry['wrap_keywords'] = $a_record[$a_configuration['gsn_keywordsField']];
 				$a_newEntry['wrap_stockTicker'] = $a_record[$a_configuration['gsn_stockTickerField']];
 			}
