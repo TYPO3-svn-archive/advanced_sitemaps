@@ -1,0 +1,56 @@
+plugin.tx_advancedsitemaps_pi1 {
+	## General settings
+	outputFormat = html
+	displayMax = 0
+	
+	## Configuration for pages
+	pages {
+		dontDisplayPages = 0
+	}
+	
+	## Wrappers
+	level1_stdWrap {
+		wrap = <span>+</span>|
+	}
+	level1_stdWrap.ifSub < level1_stdWrap
+	level1_stdWrap.ifSub.wrap = <span>-</span>|
+	level2_stdWrap < .level1_stdWrap
+	level3_stdWrap < .level1_stdWrap
+	level4_stdWrap < .level1_stdWrap
+	level5_stdWrap < .level1_stdWrap
+	level6_stdWrap < .level1_stdWrap
+
+	## Settings for general HTML output
+	html {
+		templateFile = EXT:advanced_sitemaps/res/template_html.html
+	}
+	
+	## Settings for general XML output
+	xml {
+		templateFile = EXT:advanced_sitemaps/res/template_xml.xml
+	}
+	
+	## Settings for RSS feed output
+	rss {
+		templateFile = EXT:advanced_sitemaps/res/template_rss.xml
+	}
+	
+	## Settings for ATOM feed output
+	atom {
+		templateFile = EXT:advanced_sitemaps/res/template_atom.xml
+	}
+	
+	## Settings for Google Sitemap XML output
+	google {
+		templateFile = EXT:advanced_sitemaps/res/template_google.xml
+		changeFrequency = weekly
+		priority = 0.5
+		dateFormat = Y-m-d
+	}
+
+	## Settings for Google News Sitemap output
+	google_news {
+	    templateFile = EXT:advanced_sitemaps/res/template_google_news.xml
+	    dateFormat = c
+	}
+}
