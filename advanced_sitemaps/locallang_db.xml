@@ -8,6 +8,7 @@
 		<languageKey index="default" type="array">
 			<!-- record: Sitemap Configurations -->
 			<label index="tx_advancedsitemaps_configurations">Sitemap Configurations</label>
+            <label index="tx_advancedsitemaps_configurations.title">Configuration name:</label>
 			<label index="tx_advancedsitemaps_configurations.tablename">Table:</label>
             <label index="tx_advancedsitemaps_configurations.andWhere">And where (SQL):</label>
 			<label index="tx_advancedsitemaps_configurations.parent">Parent:</label>

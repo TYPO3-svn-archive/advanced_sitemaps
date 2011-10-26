@@ -8,7 +8,8 @@ t3lib_extMgm::allowTableOnStandardPages('tx_advancedsitemaps_configurations');
 $TCA['tx_advancedsitemaps_configurations'] = array (
 	'ctrl' => array (
 		'title' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations',		
-		'label' => 'tablename',
+		'label' => 'title',
+        'label_alt' => 'tablename',
 		'label_userFunc' => 'tx_advancedsitemaps_tca->labelFunc',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',

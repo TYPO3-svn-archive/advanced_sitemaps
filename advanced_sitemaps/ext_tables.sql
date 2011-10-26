@@ -16,6 +16,7 @@ CREATE TABLE tx_advancedsitemaps_configurations (
 	starttime int(11) DEFAULT '0' NOT NULL,
 	endtime int(11) DEFAULT '0' NOT NULL,
 	fe_group int(11) DEFAULT '0' NOT NULL,
+	title varchar(255) DEFAULT '' NOT NULL,
 	tablename tinytext,
 	parent tinytext,
 	url_params tinytext,

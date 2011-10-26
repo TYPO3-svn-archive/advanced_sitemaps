@@ -36,7 +36,7 @@
  */
 class tx_advancedsitemaps_tca {
 	/**
-	 * Renders the label of the records inside the record listing
+	 * Modifies the label, if no name is given for the configuration the table name is displayed
 	 *
 	 * @access public
 	 * @static
@@ -44,12 +44,17 @@ class tx_advancedsitemaps_tca {
 	 * @return void
 	 */
 	public static function labelFunc(array &$a_parameters) {
-		if($a_parameters['row']['tablename']) {
-			$a_parameters['title'] = $GLOBALS['LANG']->sL($GLOBALS['TCA'][$a_parameters['row']['tablename']]['ctrl']['title']).' ('.$a_parameters['row']['tablename'].')';
-		} else {
-			$a_parameters['title'] = $GLOBALS['LANG']->sL('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.noTableSelected');
+		if(empty($a_parameters['row']['title'])) {
+            if(!empty($a_parameters['row']['tablename'])) {
+                $a_parameters['title'] = $GLOBALS['LANG']->sL($GLOBALS['TCA'][$a_parameters['row']['tablename']]['ctrl']['title']).' ('.$a_parameters['row']['tablename'].')';
+            }
+            else {
+                $a_parameters['title'] = $GLOBALS['LANG']->sL('LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.noTableSelected');
+            }
 		}
-
+        else {
+            $a_parameters['title'] = $a_parameters['row']['title'];
+        }
 	}
 
 	/**
