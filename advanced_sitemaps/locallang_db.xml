@@ -46,6 +46,7 @@
 			<label index="advanced_sitemaps.pi_flexform.google">Google Sitemap</label>
             <label index="advanced_sitemaps.pi_flexform.google_news">Google News Sitemap</label>
 			<label index="advanced_sitemaps.pi_flexform.templateFile">Template:</label>
+            <label index="advanced_sitemaps.pi_flexform.csv">CSV</label>
 			
 			<!-- pi1: FlexForm: Google Sitemaps -->
 			<label index="advanced_sitemaps.pi_flexform.sheet_google">Google Sitemaps</label>
@@ -76,6 +77,13 @@
             <label index="advanced_sitemaps.pi_flexform.genres">Genres:</label>
             <label index="advanced_sitemaps.pi_flexform.keywords">Keywords:</label>
             <label index="advanced_sitemaps.pi_flexform.stockTicker">Stock trackers:</label>
+
+            <!-- pi1: FlexForm: CSV -->
+            <label index="advanced_sitemaps.pi_flexform.sheet_csv">CSV</label>
+            <label index="advanced_sitemaps.pi_flexform.delimiter">Field delimiter:</label>
+            <label index="advanced_sitemaps.pi_flexform.enclosre">Field enclosure:</label>
+            <label index="advanced_sitemaps.pi_flexform.pageFields">Fields (from pages):</label>
+            <label index="advanced_sitemaps.pi_flexform.customFields">Fields (custom):</label>
 			
 			<!-- Ghost Fields -->
 			<label index="fields.priority">Priority:</label>

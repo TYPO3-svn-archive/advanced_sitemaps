@@ -110,6 +110,7 @@ class tx_advancedsitemaps_tca {
 					$a_additionalFields[$s_title] = array($s_title, $s_field);
 				}
 			}
+            sort($a_additionalFields);
 
 			$a_parameters['items'] = array_merge($a_parameters['items'],$a_additionalFields);
 		}

@@ -43,6 +43,7 @@ class tx_advancedsitemaps_view {
     protected $b_directOutput = false;
     protected $s_mimeType = 'text/html';
     protected $a_globalMarkers = array();
+    protected $a_csvFields = array();
 
     /**
      * Main render function
@@ -58,13 +59,12 @@ class tx_advancedsitemaps_view {
         $this->o_plugin = $o_plugin;
 
         $s_templateFile = t3lib_div::getFileAbsFileName($this->a_conf[$s_outputFormat . '.']['templateFile']);
-        if (empty($s_templateFile)) exit('(Advanced Sitemaps) No template found, have you included the static template?');
+        if (empty($s_templateFile) && $s_outputFormat != 'csv') exit('(Advanced Sitemaps) No template found, have you included the static template?');
         $s_templateData = t3lib_div::getURL($s_templateFile);
-        if (empty($s_templateData)) exit('(Advanced Sitemaps) No template data found, file does not exist, is empty or not readable...');
+        if (empty($s_templateData) && $s_outputFormat != 'csv') exit('(Advanced Sitemaps) No template data found, file does not exist, is empty or not readable...');
 
         $this->s_templateWrap = t3lib_parsehtml::getSubpart($s_templateData, '###TEMPLATE_' . strtoupper($s_outputFormat) . '###');
         $this->s_templateItem = t3lib_parsehtml::getSubpart($this->s_templateWrap, '###SUBPART_ENTRY###');
-        $s_content = '';
         switch ($s_outputFormat) {
             case 'html':
                 break;
@@ -76,6 +76,28 @@ class tx_advancedsitemaps_view {
                 break;
             case 'atom':
                 // Not available yet
+                break;
+            case 'csv':
+                $s_baseUrl = $GLOBALS['TSFE']->absRefPrefix ? $GLOBALS['TSFE']->absRefPrefix : $GLOBALS['TSFE']->baseUrl;
+                $this->b_directOutput = true;
+                $this->s_mimeType = 'text/plain';
+                $a_entryKeys = array_keys($this->a_entries);
+                foreach ($a_entryKeys as $s_entryKey) {
+                    $this->a_entries[$s_entryKey]['url'] = htmlspecialchars($this->a_entries[$s_entryKey]['url']);
+                    if (strstr($this->a_entries[$s_entryKey]['url'], $s_baseUrl) === false) {
+                        $this->a_entries[$s_entryKey]['url'] = $s_baseUrl . $this->a_entries[$s_entryKey]['url'];
+                    }
+                }
+
+                // Spoof the wrapper template
+                $this->s_templateWrap = '<!-- ###SUBPART_ENTRY### --><!-- ###SUBPART_ENTRY### -->';
+
+                // Generate "markers"
+                $_prefixCallback = create_function('$str','return "field.".$str;');
+                $this->a_csvFields = array_merge(
+                    array_map($_prefixCallback,t3lib_div::trimExplode(',',$this->a_conf['csv.']['pageFields'],true)),
+                    t3lib_div::trimExplode(',',$this->a_conf['csv.']['customFields'],true)
+                );
                 break;
             case 'google':
                 $s_baseUrl = $GLOBALS['TSFE']->absRefPrefix ? $GLOBALS['TSFE']->absRefPrefix : $GLOBALS['TSFE']->baseUrl;
@@ -128,7 +150,15 @@ class tx_advancedsitemaps_view {
 
         if ($this->b_directOutput) {
             header('Content-type: ' . $this->s_mimeType . ';');
-            echo '<?xml version="1.0" encoding="UTF-8"?>';
+
+            switch($s_outputFormat) {
+                case 'XML':
+                    echo '<?xml version="1.0" encoding="UTF-8"?>';
+                    break;
+                case 'CSV':
+                    // @todo Add headers
+                    break;
+            }
             echo $s_content;
             exit();
         }
@@ -147,7 +177,26 @@ class tx_advancedsitemaps_view {
         $s_renderedItems = '';
         $i_itemCount = 0;
         foreach ($this->a_entries as $s_entryKey => $a_entryData) {
-            $s_renderedItems .= $this->renderItem($a_entryData, $s_entryKey);
+            // CSV rendering
+            if($this->a_conf['outputFormat'] == 'csv') {
+                $a_data = array();
+                foreach($this->a_csvFields as $s_fieldName) {
+                    // Data comes from the record
+                    if(strpos($s_fieldName, 'field.') === 0) {
+                        $a_data[] = $a_entryData['record'][substr($s_fieldName,6)];
+                    }
+                    // Data comes from the entry data
+                    elseif(!is_object($a_entryData[$s_fieldName]) && !is_array($a_entryData[$s_fieldName])) {
+                        $a_data[] = $a_entryData[$s_fieldName];
+                    }
+                }
+
+                $s_renderedItems .= $this->strPutCSV($a_data, $this->a_conf['csv.']['delimiter'], $this->a_conf['csv.']['enclosure']);
+            }
+            // Normal rendering
+            else {
+                $s_renderedItems .= $this->renderItem($a_entryData, $s_entryKey);
+            }
             if (++$i_itemCount == $this->a_conf['displayMax'] && $this->a_conf['displayMax'] != 0) break;
         }
         return $s_renderedItems;
@@ -178,6 +227,7 @@ class tx_advancedsitemaps_view {
             }
         }
 
+        // Apply wraps
         $s_stdWrap = 'level' . $a_entryData['level'] . '_stdWrap.';
         $b_hasSub = $this->hasChildren($s_entryKey, $a_entryData);
         if ($b_hasSub) {
@@ -205,6 +255,46 @@ class tx_advancedsitemaps_view {
         $a_subpart = array_slice($this->a_entries, $i_offset + 1, 1, true);
         if ($a_subpart[key($a_subpart)]['level'] > $a_currentEntry['level']) return true;
         return false;
+    }
+
+    /**
+     * Render function to write CSV data into a string
+     *
+     * @param   array   $a_data         The data array containing the values
+     * @param   string  $s_delimiter    The delimiter
+     * @param   string  $s_enclosure    The string enclosure
+     * @param   string  $s_terminator   The row terminator
+     * @return  string  The CSV data
+     */
+    protected function strPutCSV($a_data, $s_delimiter = ',', $s_enclosure = '"', $s_terminator = "\n") {
+        # First convert associative array to numeric indexed array
+        foreach ($a_data as $value) $a_workData[] = $value;
+
+        $s_returnValue = '';
+        $i_dataSize = count($a_workData);
+
+        for ($i=0; $i<$i_dataSize; $i++) {
+            if (is_array($a_workData[$i])) {
+                $s_returnValue .= str_putcsv($a_workData[$i], $s_delimiter, $s_enclosure, $s_terminator);
+            } else {
+                switch (gettype($a_workData[$i])) {
+                    case "NULL":     $s_format = ''; break;
+                    case "boolean":  $s_format = ($a_workData[$i] == true) ? 'true': 'false'; break;
+                    # Make sure sprintf has a good datatype to work with
+                    case "integer":  $s_format = '%i'; break;
+                    case "double":   $s_format = '%0.2f'; break;
+                    case "string":   $s_format = '%s'; break;
+                    # Unknown or invalid items for a csv - note: the datatype of array is already handled above, assuming the data is nested
+                    case "object":
+                    case "resource":
+                    default:         $s_format = ''; break;
+                }
+                $s_returnValue .= sprintf('%2$s'.$s_format.'%2$s', $a_workData[$i], $s_enclosure);
+                $s_returnValue .= ($i < ($i_dataSize-1)) ? $s_delimiter : $s_terminator;
+            }
+        }
+
+        return $s_returnValue;
     }
 }
 

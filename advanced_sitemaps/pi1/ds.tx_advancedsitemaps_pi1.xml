@@ -34,6 +34,10 @@
                                         <numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.google_news</numIndex>
                                         <numIndex index="1">google_news</numIndex>
                                     </numIndex>
+                                    <numIndex index="7" type="array">
+                                        <numIndex index="0">LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.csv</numIndex>
+                                        <numIndex index="1">csv</numIndex>
+                                    </numIndex>
                                 </items>
                                 <maxitems>1</maxitems>
                                 <size>1</size>
@@ -257,5 +261,59 @@
                 </el>
             </ROOT>
         </sNEWS>
+        <sCSV>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.sheet_csv</sheetTitle>
+                    <cshFile>LLL:EXT:advanced_sitemaps/pi1/locallang_csh_pi1.xml</cshFile>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <delimiter>
+                        <TCEforms>
+                            <label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.delimiter</label>
+                            <config>
+                                <type>input</type>
+                                <size>32</size>
+                                <default>,</default>
+                            </config>
+                        </TCEforms>
+                    </delimiter>
+                    <enclosure>
+                        <TCEforms>
+                            <label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.enclosure</label>
+                            <config>
+                                <type>input</type>
+                                <size>32</size>
+                                <default>"</default>
+                            </config>
+                        </TCEforms>
+                    </enclosure>
+                    <pageFields>
+                        <TCEforms>
+                            <label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.pageFields</label>
+                            <config>
+                                <type>select</type>
+                                <checkbox></checkbox>
+                                <items type="array"></items>
+                                <maxitems>99</maxitems>
+                                <size>6</size>
+                                <itemsProcFunc>tx_advancedsitemaps_tca->listFields</itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </pageFields>
+                    <customFields>
+                        <TCEforms>
+                            <label>LLL:EXT:advanced_sitemaps/locallang_db.xml:advanced_sitemaps.pi_flexform.customFields</label>
+                            <config>
+                                <type>text</type>
+                                <cols>40</cols>
+                                <rows>3</rows>
+                            </config>
+                        </TCEforms>
+                    </customFields>
+                </el>
+            </ROOT>
+        </sCSV>
     </sheets>
 </T3DataStructure>

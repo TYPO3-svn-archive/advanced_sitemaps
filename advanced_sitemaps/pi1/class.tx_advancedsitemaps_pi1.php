@@ -308,6 +308,8 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
 
         // Setup the new entry
         $a_newEntry = array(
+            'record' => $this->a_conf['outputFormat'] == 'csv' ? $a_record : false,
+            'table' => $s_table,
             'title' => $a_record[$s_labelField],
             'url' => $this->createLink($a_record, $s_table, $a_configuration),
             'crdate' => $a_record[$s_crdateField],
