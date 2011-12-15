@@ -205,7 +205,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                 // Construct FROM
                 $a_fromParts = array(
                     $a_configuration['tablename'],
-                    "LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS p ON p.table_name = '" . $a_configuration['tablename'] . "' AND p.record_uid = uid AND dataType = 'priority'",
+                    "LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS p ON p.table_name = '" . $a_configuration['tablename'] . "' AND p.record_uid = uid AND p.dataType = 'priority'",
                     "LEFT OUTER JOIN tx_advancedsitemaps_configurations_records AS cf ON cf.table_name = '" . $a_configuration['tablename'] . "' AND cf.record_uid = uid AND cf.dataType = 'changeFreq'"
                 );
                 $s_from = implode(' ', $a_fromParts);
