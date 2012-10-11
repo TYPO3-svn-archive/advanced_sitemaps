@@ -24,6 +24,7 @@
 			<label index="tx_advancedsitemaps_configurations.title_field">Title field:</label>
 			<label index="tx_advancedsitemaps_configurations.link_configuration">Link configuration</label>
 			<label index="tx_advancedsitemaps_configurations.noTableSelected">No table was set</label>
+            <label index="tx_advancedsitemaps_configurations.disable_language_check">Ignore language?</label>
             <label index="tx_advancedsitemaps_configurations.gs_template">Record type:</label>
             <label index="tx_advancedsitemaps_configurations.gs_template.default">Default</label>
             <label index="tx_advancedsitemaps_configurations.gs_template.news">News</label>

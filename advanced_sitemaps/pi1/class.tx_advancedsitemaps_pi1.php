@@ -185,7 +185,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                 // Construct WHERE
                 $a_whereParts = array(1);
                 $s_languageField = $GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['languageField'];
-                if ($s_languageField) {
+                if ($s_languageField && intval($a_configuration['disable_language_check']) == 0) {
                     $a_whereParts[] = $s_languageField . ' = ' . $GLOBALS['TSFE']->sys_language_uid;
                 }
                 if($a_configuration['startingpoint']) {

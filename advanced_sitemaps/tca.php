@@ -200,6 +200,7 @@ $TCA['tx_advancedsitemaps_configurations'] = array(
                 'maxitems' => 10,
             )
         ),
+
         'recursive' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.recursive',
@@ -215,6 +216,14 @@ $TCA['tx_advancedsitemaps_configurations'] = array(
                 ),
                 'default' => '0'
             ),
+        ),
+        'disable_language_check' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.disable_language_check',
+            'config' => array(
+                'type' => 'check',
+                'default' => '0'
+            )
         ),
         'gs_priority' => array(
             'exclude' => 0,
@@ -304,7 +313,7 @@ $TCA['tx_advancedsitemaps_configurations'] = array(
         ),
     ),
     'types' => array(
-        '0' => array('showitem' => 'title, sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tablename;;2, andWhere, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_priority,gs_changeFreq,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleNewsSitemaps,gsn_dateField,gsn_keywordsField,gsn_stockTickerField')
+        '0' => array('showitem' => 'title, sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, disable_language_check, hidden;;1, tablename;;2, andWhere, startingpoint, recursive, parent,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tx_advancedsitemaps_configurations.link_configuration,title_field, single_page, url_params,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleSitemaps,gs_priority,gs_changeFreq,--div--;LLL:EXT:advanced_sitemaps/locallang_db.xml:tabs.googleNewsSitemaps,gsn_dateField,gsn_keywordsField,gsn_stockTickerField')
     ),
     'palettes' => array(
         '1' => array('showitem' => 'starttime, endtime, fe_group'),

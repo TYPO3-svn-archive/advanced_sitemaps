@@ -28,6 +28,7 @@ CREATE TABLE tx_advancedsitemaps_configurations (
 	startingpoint text,
 	recursive tinytext,
 	andWhere text,
+	disable_language_check tinyint(4) DEFAULT '0' NOT NULL,
 	gs_template tinytext,
 	gs_priority char(3) DEFAULT '' NOT NULL,
 	gs_changeFreq varchar(16) DEFAULT '' NOT NULL,
