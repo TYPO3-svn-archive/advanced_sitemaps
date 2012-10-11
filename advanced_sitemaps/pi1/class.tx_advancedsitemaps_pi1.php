@@ -29,6 +29,7 @@
 
 require_once(PATH_tslib . 'class.tslib_pibase.php');
 require_once(PATH_t3lib . 'class.t3lib_pagetree.php');
+require_once(t3lib_extMgm::extPath('advanced_sitemaps') . 'classes/class.tx_advancedsitemaps_localizedpagetree.php');
 require_once(t3lib_extMgm::extPath('advanced_sitemaps') . 'view/class.tx_advancedsitemaps_view.php');
 
 /**
@@ -265,7 +266,12 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
         if (!$this->a_conf['pages.']['displayHiddenInMenu']) $s_addWhere .= ' AND nav_hide = 0';
         if ($this->a_conf['pages.']['excludePages']) $s_addWhere .= ' AND uid NOT IN (' . $this->a_conf['pages.']['excludePages'] . ')';
         /** @var $o_pageTree t3lib_pageTree */
-        $o_pageTree = t3lib_div::makeInstance('t3lib_pageTree');
+        if($GLOBALS['TSFE']->sys_language_uid > 0) {
+            $o_pageTree = t3lib_div::makeInstance('tx_advancedsitemaps_localizedPageTree');
+        }
+        else {
+            $o_pageTree = t3lib_div::makeInstance('t3lib_pageTree');
+        }
         $o_pageTree->makeHTML = 0;
         $o_pageTree->addField('SYS_LASTCHANGED', 1);
         $o_pageTree->addField('crdate', 1);
@@ -289,6 +295,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
         );
         foreach ($o_pageTree->tree as $a_page)
         {
+            $a_page['row']['title'] = $a_page['row']['plo_title'] ? $a_page['row']['plo_title'] : $a_page['row']['title'];
             $this->addEntry($a_page['row'], 'pages', $a_configuration);
         }
 
