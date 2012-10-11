@@ -71,12 +71,11 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
     public $pi_checkCHash = true;
 
     /**
-     * The starting PID, page tree starts here
+     * The starting points
      *
-     * @access private
-     * @var int
+     * @var array
      */
-    private $i_startingPid = 0;
+    protected $a_startpoints = array();
 
     /**
      * The plugin configuration
@@ -140,40 +139,10 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
     public function main($s_content, $a_conf) {
         $this->_init($s_content, $a_conf);
 
-        // Process pages
-        $s_addWhere = '';
-        if (!$this->a_conf['pages.']['displayHiddenInMenu']) $s_addWhere .= ' AND nav_hide = 0';
-        if ($this->a_conf['pages.']['excludePages']) $s_addWhere .= ' AND uid NOT IN (' . $this->a_conf['pages.']['excludePages'] . ')';
-        /** @var $o_pageTree t3lib_pageTree */
-        $o_pageTree = t3lib_div::makeInstance('t3lib_pageTree');
-        $o_pageTree->makeHTML = 0;
-        $o_pageTree->addField('SYS_LASTCHANGED', 1);
-        $o_pageTree->addField('crdate', 1);
-        $o_pageTree->addField('pid', 1);
-        $o_pageTree->addField('tx_advancedsitemaps_priority', 1);
-        $o_pageTree->addField('tx_advancedsitemaps_changeFreq', 1);
-        $o_pageTree->init('AND no_search = 0 AND hidden != 1 AND deleted != 1 AND doktype NOT IN (199, 254, 255, 5)' . $s_addWhere);
-        $o_pageTree->getTree($this->i_startingPid);
-
-        // Page limit
-        $i_pageCount = count($o_pageTree->tree);
-        if ($this->i_pageLimit > 0 && $this->i_pageLimit < $i_pageCount) {
-            $o_pageTree->tree = array_slice($o_pageTree->tree, 0, $this->i_pageLimit);
+        // Generate a tree for each starting point
+        foreach($this->a_startpoints as $i_startpoint) {
+            $this->addTree($i_startpoint);
         }
-
-        $a_configuration = array(
-            'single_page' => 0,
-            'additional_params' => '',
-            'gs_priority' => $this->a_conf['priority'] ? $this->a_conf['priority'] : '0.5',
-            'gs_changeFreq' => $this->a_conf['changeFrequency'] ? $this->a_conf['changeFrequency'] : 'weekly',
-        );
-        foreach ($o_pageTree->tree as $a_page)
-        {
-            $this->addEntry($a_page['row'], 'pages', $a_configuration);
-        }
-
-        unset($o_pageTree);
-        $o_pageTree = NULL;
 
         // Process records, if any configurations exist
         if (is_array($this->a_recordConfigurations)) {
@@ -278,7 +247,7 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
         }
 
         // Pre-load record configurations
-        $this->i_startingPid = $this->cObj->data['pages'] ? $this->cObj->data['pages'] : $GLOBALS['TSFE']->id;
+        $this->a_startpoints = $this->cObj->data['pages'] ? t3lib_div::trimExplode(',',$this->cObj->data['pages']) : array($GLOBALS['TSFE']->id);
         $this->i_pageLimit = intval($this->a_conf['pages.']['limit']);
         $this->a_entries = array();
         $this->a_recordConfigurations = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -288,6 +257,43 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
             '',
             'sorting ASC'
         );
+    }
+
+    protected function addTree($i_startpoint) {
+        // Process pages
+        $s_addWhere = '';
+        if (!$this->a_conf['pages.']['displayHiddenInMenu']) $s_addWhere .= ' AND nav_hide = 0';
+        if ($this->a_conf['pages.']['excludePages']) $s_addWhere .= ' AND uid NOT IN (' . $this->a_conf['pages.']['excludePages'] . ')';
+        /** @var $o_pageTree t3lib_pageTree */
+        $o_pageTree = t3lib_div::makeInstance('t3lib_pageTree');
+        $o_pageTree->makeHTML = 0;
+        $o_pageTree->addField('SYS_LASTCHANGED', 1);
+        $o_pageTree->addField('crdate', 1);
+        $o_pageTree->addField('pid', 1);
+        $o_pageTree->addField('tx_advancedsitemaps_priority', 1);
+        $o_pageTree->addField('tx_advancedsitemaps_changeFreq', 1);
+        $o_pageTree->init('AND no_search = 0 AND hidden != 1 AND deleted != 1 AND doktype NOT IN (199, 254, 255, 5)' . $s_addWhere);
+        $o_pageTree->getTree($i_startpoint);
+
+        // Page limit
+        $i_pageCount = count($o_pageTree->tree);
+        if ($this->i_pageLimit > 0 && $this->i_pageLimit < $i_pageCount) {
+            $o_pageTree->tree = array_slice($o_pageTree->tree, 0, $this->i_pageLimit);
+        }
+
+        $a_configuration = array(
+            'single_page' => 0,
+            'additional_params' => '',
+            'gs_priority' => $this->a_conf['priority'] ? $this->a_conf['priority'] : '0.5',
+            'gs_changeFreq' => $this->a_conf['changeFrequency'] ? $this->a_conf['changeFrequency'] : 'weekly',
+        );
+        foreach ($o_pageTree->tree as $a_page)
+        {
+            $this->addEntry($a_page['row'], 'pages', $a_configuration);
+        }
+
+        unset($o_pageTree);
+        $o_pageTree = NULL;
     }
 
     /**
