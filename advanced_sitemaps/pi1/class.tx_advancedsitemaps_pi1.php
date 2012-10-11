@@ -159,9 +159,11 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                     if (isset($a_configuration['parent']) && is_array($this->a_entries[$a_configuration['parent']])) {
                         $s_sortByDir = ($a_configuration['sortby_dir'] == 'DESC') ? 'ASC' : 'DESC';
                     }
-                    $s_sorting = $a_configuration['sortby'] . ' ' . $a_configuration['sortby_dir'];
+                    $s_sorting = $a_configuration['sortby'] . ' ' . ($a_configuration['sortby_dir'] ? $a_configuration['sortby_dir'] : 'ASC');
                 } elseif (isset($GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['sortby'])) {
                     $s_sorting = $GLOBALS['TCA'][$a_configuration['tablename']]['ctrl']['sortby'] . ' DESC';
+                } else {
+                    $s_sorting = '';
                 }
 
                 // Construct SELECT
