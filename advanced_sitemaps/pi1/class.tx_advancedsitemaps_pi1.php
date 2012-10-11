@@ -230,7 +230,8 @@ class tx_advancedsitemaps_pi1 extends tslib_pibase {
                     $s_from,
                     $s_where,
                     '',
-                    $s_sorting
+                    $s_sorting,
+                    $a_configuration['record_limit'] ? $a_configuration['record_limit'] : ''
                 );
 
                 foreach ($a_records as $a_record) {
